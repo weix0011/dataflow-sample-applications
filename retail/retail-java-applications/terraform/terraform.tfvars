@@ -14,12 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-# project_id = "xl-project-302106"
-region                     = "us-central1"
-topic_clickstream_inbound  = "Clickstream-inbound"
-topic_transactions_inbound = "Transactions-inbound"
-topic_inventory_inbound    = "Inventory-inbound"
-topic_inventory_outbound   = "Inventory-outbound"
-clickstream_inbound_sub    = "Clickstream-inbound-sub"
-transactions_inbound_sub   = "Transactions-inbound-sub"
-inventory_inbound_sub      = "Inventory-inbound-sub"
+
+region                                     = "us-central1"
+topic_clickstream_inbound                  = "Clickstream-inbound"
+topic_transactions_inbound                 = "Transactions-inbound"
+topic_inventory_inbound                    = "Inventory-inbound"
+topic_inventory_outbound                   = "Inventory-outbound"
+clickstream_inbound_sub                    = "Clickstream-inbound-sub"
+transactions_inbound_sub                   = "Transactions-inbound-sub"
+inventory_inbound_sub                      = "Inventory-inbound-sub"
+bq_dataset_id_retail_store                 = "Retail_Store"
+bq_friendly_name_retail_store              = "Retail Store"
+bq_table_id_store_locations                = "Store_Locations"
+bq_dataset_id_retail_store_aggregations    = "Retail_Store_Aggregations"
+bq_friendly_name_retail_store_aggregations = "Retail Store Aggregations"

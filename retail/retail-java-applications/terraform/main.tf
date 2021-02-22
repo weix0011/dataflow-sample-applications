@@ -28,93 +28,22 @@ provider "google" {
   region  = var.region
 }
 
-//enable pubsub API
-resource "google_project_service" "pubsub" {
-  service = "pubsub.googleapis.com"
-  disable_on_destroy = false
+module "pubsub" {
+  source                     = "./modules/pubsub"
+  topic_clickstream_inbound  = var.topic_clickstream_inbound
+  topic_transactions_inbound = var.topic_transactions_inbound
+  topic_inventory_inbound    = var.topic_inventory_inbound
+  topic_inventory_outbound   = var.topic_inventory_outbound
+  clickstream_inbound_sub    = var.clickstream_inbound_sub
+  transactions_inbound_sub   = var.transactions_inbound_sub
+  inventory_inbound_sub      = var.inventory_inbound_sub
 }
 
-//create pubsub resources
-resource "google_pubsub_topic" "topic_clickstream_inbound" {
-  name = var.topic_clickstream_inbound
-  labels = {
-    created = "terraform"
-  }
-
-  depends_on = [google_project_service.pubsub]
-}
-
-resource "google_pubsub_topic" "topic_transactions_inbound" {
-  name = var.topic_transactions_inbound
-
-  labels = {
-    created = "terraform"
-  }
-
-  depends_on = [google_project_service.pubsub]
-}
-
-resource "google_pubsub_topic" "topic_inventory_inbound" {
-  name = var.topic_inventory_inbound
-
-  labels = {
-    created = "terraform"
-  }
-
-  depends_on = [google_project_service.pubsub]
-}
-
-resource "google_pubsub_topic" "topic_inventory_outbound" {
-  name = var.topic_inventory_outbound
-
-  labels = {
-    created = "terraform"
-  }
-
-  depends_on = [google_project_service.pubsub]
-}
-
-resource "google_pubsub_subscription" "clickstream_inbound_sub" {
-  name  = var.clickstream_inbound_sub
-  topic = google_pubsub_topic.topic_clickstream_inbound.name
-
-  labels = {
-    created = "terraform"
-  }
-  
-  retain_acked_messages      = false
-
-  ack_deadline_seconds       = 20
-
-  enable_message_ordering    = false
-}
-
-resource "google_pubsub_subscription" "transactions_inbound_sub" {
-  name  = var.transactions_inbound_sub
-  topic = google_pubsub_topic.topic_transactions_inbound.name
-
-  labels = {
-    created = "terraform"
-  }
-  
-  retain_acked_messages      = false
-
-  ack_deadline_seconds       = 20
-
-  enable_message_ordering    = false
-}
-
-resource "google_pubsub_subscription" "inventory_inbound_sub" {
-  name  = var.inventory_inbound_sub
-  topic = google_pubsub_topic.topic_inventory_inbound.name
-
-  labels = {
-    created = "terraform"
-  }
-  
-  retain_acked_messages      = false
-
-  ack_deadline_seconds       = 20
-
-  enable_message_ordering    = false
+module "bigquery" {
+  source                                     = "./modules/bigquery"
+  bq_dataset_id_retail_store                 = var.bq_dataset_id_retail_store
+  bq_friendly_name_retail_store              = var.bq_friendly_name_retail_store
+  bq_table_id_store_locations                = var.bq_table_id_store_locations
+  bq_dataset_id_retail_store_aggregations    = var.bq_dataset_id_retail_store_aggregations
+  bq_friendly_name_retail_store_aggregations = var.bq_friendly_name_retail_store_aggregations
 }

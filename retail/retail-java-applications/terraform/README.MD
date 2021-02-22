@@ -3,6 +3,7 @@
 Use Terraform to deploy the folllowing services defined in the `main.tf` file
 
 - Pub/Sub
+- BigQuery
 
 ## Install Terraform
 
@@ -16,14 +17,19 @@ This repo has been tested on Terraform version `0.14.5` and the Google provider 
 The values of variables can be found in terraform.tfvars as shown below. 
 
 ```
-region                     = "us-central1"
-topic_clickstream_inbound  = "Clickstream-inbound"
-topic_transactions_inbound = "Transactions-inbound"
-topic_inventory_inbound    = "Inventory-inbound"
-topic_inventory_outbound   = "Inventory-outbound"
-clickstream_inbound_sub    = "Clickstream-inbound-sub"
-transactions_inbound_sub   = "Transactions-inbound-sub"
-inventory_inbound_sub      = "Inventory-inbound-sub"
+region                                     = "us-central1"
+topic_clickstream_inbound                  = "Clickstream-inbound"
+topic_transactions_inbound                 = "Transactions-inbound"
+topic_inventory_inbound                    = "Inventory-inbound"
+topic_inventory_outbound                   = "Inventory-outbound"
+clickstream_inbound_sub                    = "Clickstream-inbound-sub"
+transactions_inbound_sub                   = "Transactions-inbound-sub"
+inventory_inbound_sub                      = "Inventory-inbound-sub"
+bq_dataset_id_retail_store                 = "Retail_Store"
+bq_friendly_name_retail_store              = "Retail Store"
+bq_table_id_store_locations                = "Store_Locations"
+bq_dataset_id_retail_store_aggregations    = "Retail_Store_Aggregations"
+bq_friendly_name_retail_store_aggregations = "Retail Store Aggregations"
 ```
 
 You can change these resources' names if there is a need to do so.
@@ -90,7 +96,7 @@ terraform apply -var-file terraform.tfvars
 In addition to what the plan command does, the apply command asks you to confirm your deployment action by entering `yes` to proceed:
 
 ```
-Plan: 8 to add, 0 to change, 0 to destroy.
+Plan: 12 to add, 0 to change, 0 to destroy.
 
 Do you want to perform these actions?
   Terraform will perform the actions described above.
@@ -114,7 +120,7 @@ google_project_service.pubsub: Creating...
 .
 .
 google_pubsub_subscription.transactions_inbound_sub: Creation complete after 12s [id=projects/[your project ID]/subscriptions/Transactions-inbound-sub]
-Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
 ```
 ## Terraform Destroy
 

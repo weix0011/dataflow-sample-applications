@@ -1,0 +1,22 @@
+[
+  {
+    "name": "d",
+    "type": "INT64",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "city",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "state",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "zip",
+    "type": "INT64",
+    "mode": "NULLABLE"
+  }
+]
